@@ -1,6 +1,6 @@
 version: "3.7"
 
-services:
+#services:
 #  mailhog:
 #    image: mailhog/mailhog
 #    container_name: "${PROJECT_NAME}_mailhog"

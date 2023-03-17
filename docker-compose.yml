@@ -2,6 +2,7 @@ version: "3.7"
 
 services:
   mariadb:
+    platform: linux/amd64
     image: wodby/mariadb:$MARIADB_TAG
     container_name: "${PROJECT_NAME}_mariadb"
     stop_grace_period: 30s
@@ -15,6 +16,7 @@ services:
 #      - /path/to/mariadb/data/on/host:/var/lib/mysql # Use bind mount
 
   php:
+    platform: linux/amd64
     image: wodby/drupal-php:$PHP_TAG
     container_name: "${PROJECT_NAME}_php"
     environment:
@@ -56,6 +58,7 @@ services:
 
 
   nginx:
+    platform: linux/amd64
     image: wodby/nginx:$NGINX_TAG
     container_name: "${PROJECT_NAME}_nginx"
     depends_on:
@@ -75,6 +78,7 @@ services:
     - "traefik.http.routers.${PROJECT_NAME}_nginx.rule=Host(`${PROJECT_BASE_URL}`)"
 
   traefik:
+    platform: linux/amd64
     image: traefik:v2.0
     container_name: "${PROJECT_NAME}_traefik"
     command: --api.insecure=true --providers.docker
@@ -83,28 +87,3 @@ services:
 #    - '8080:8080' # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-
-#x-mutagen:
-#  sync:
-#    defaults:
-#      ignore:
-#        vcs: true
-#        paths:
-#        - .DS_Store
-#        - .history
-#        - .idea
-#    drupal:
-#      alpha: "."
-#      beta: "volume://drupal"
-#      configurationBeta:
-#        permissions:
-#          defaultFileMode: 0644
-#          defaultDirectoryMode: 0755
-#          defaultOwner: "id:501"
-#          defaultGroup: "id:20"
-
-volumes:
-## For macOS users (Mutagen)
-#  drupal:
-# For Xdebug profiler
-  files:
