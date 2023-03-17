@@ -87,3 +87,8 @@ logs:
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:
+
+## website	:	Launch website in default browser.
+.PHONY: website
+website:
+	xdg-open http://${PROJECT_BASE_URL} || open http://${PROJECT_BASE_URL}
