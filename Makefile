@@ -92,3 +92,8 @@ logs:
 .PHONY: website
 website:
 	xdg-open http://${PROJECT_BASE_URL} || open http://${PROJECT_BASE_URL}
+
+## pma	:	Launch PHP/MyAdmin in default browser.
+.PHONY: pma
+pma:
+	xdg-open http://pma.${PROJECT_BASE_URL} || open http://pma.${PROJECT_BASE_URL}
