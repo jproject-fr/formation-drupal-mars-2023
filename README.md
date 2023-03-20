@@ -15,7 +15,7 @@ If you want to change the default local port, for 8080 for instance,
 make the following change `PROJECT_PORT=8080`
 * Create the docker containers for the project: `make`
 * Use composer to manage all dependencies: `make composer install`
-This step might last long, please be patient.
+This step might last long, please be patient. If you encounter permissions issues during the composer install, run `make all-permissions`, then re-run `make composer install`
 * RUN `make init` to install Drupal with your configuration.
 * RUN `make website` to launch your website.
 

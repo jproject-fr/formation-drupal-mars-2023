@@ -146,6 +146,8 @@ init:
 	${DRUSHCOMMAND} updb
 	@echo "${BLUE}Import config${RESET}"
 	${DRUSHCOMMAND} cim
+	@echo "${BLUE}Fix permissions ...${RESET}"
+	make fix-permissions
 	@echo "${BLUE}Clear cache - Drush cr ...${RESET}"
 	make drush cr
 	@echo "${GREEN}BOUYAKAAAA !!! Run ${RED}make website ${GREEN}to launch your website${RESET}"
