@@ -12,7 +12,7 @@ Also make sure that PHP_TAG environment variable is correct depending on your OS
 (Linux, MacOs or Windows)
 You can leave everything else as such.
 If you want to change the default local port, for 8080 for instance,
-make the following change `TRAEFIK_PORT=8080:80`
+make the following change `PROJECT_PORT=8080`
 * Create the docker containers for the project: `make`
 * Use composer to manage all dependencies: `make composer install`
 This step might last long, please be patient.
