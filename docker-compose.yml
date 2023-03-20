@@ -84,6 +84,6 @@ services:
     command: --api.insecure=true --providers.docker
     ports:
     - "${PROJECT_PORT}:80"
-    - "${TRAEFIK_PORT}:80" # Dashboard
+    - "${TRAEFIK_PORT}:8080" # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
