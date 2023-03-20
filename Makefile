@@ -118,9 +118,9 @@ local-env: local-settings
 ## local-settings : Copy the example.settings.local.php to settings.local.php in sites/default
 .PHONY: local-settings
 local-settings:
-	@echo "Copy the example.settings.local.php to settings.local.php in sites/default"
+	@echo "Copy the custom.settings.local.php to settings.local.php in sites/default"
 	@chmod 755 ${DRUPAL_DEFAULT} # Drupal set the default directory to read-only, we need to make it writable
-	@cp -i web/sites/example.settings.local.php ${DRUPAL_DEFAULT}/settings.local.php && echo "${GREEN}File created.${RESET}" || echo "${RED}File not created.${RESET}"
+	@cp -i web/sites/custom.settings.local.php ${DRUPAL_DEFAULT}/settings.local.php && echo "${GREEN}File created.${RESET}" || echo "${RED}File not created.${RESET}"
 	@chmod 555 ${DRUPAL_DEFAULT} # Revert permissions
 
 ## fix-permissions : Allow you to change folder permissions (555 on sites/default and 777 for underneath folders)
