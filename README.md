@@ -17,7 +17,6 @@ make the following change `TRAEFIK_PORT=8080:80`
 * Use composer to manage all dependencies: `make composer install`
 This step might last long, please be patient.
 * RUN `make init` to install Drupal with your configuration.
-* RUN `make pma` to see your database.
 * RUN `make website` to launch your website.
 
 ## 2. Import existing database and files
