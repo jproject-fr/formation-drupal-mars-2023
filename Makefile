@@ -4,6 +4,7 @@ default: up
 
 COMPOSER_ROOT ?= /var/www/html
 DRUPAL_ROOT ?= /var/www/html/web
+DRUPAL_DEFAULT ?= web/sites/default
 
 ## help	:	Print commands help.
 .PHONY: help
@@ -87,6 +88,102 @@ logs:
 # https://stackoverflow.com/a/6273809/1826109
 %:
 	@:
+
+##########################################################################
+##    Specific to project
+##########################################################################
+
+BLACK        := $(shell tput -Txterm setaf 0)
+RED          := $(shell tput -Txterm setaf 1)
+GREEN        := $(shell tput -Txterm setaf 2)
+YELLOW       := $(shell tput -Txterm setaf 3)
+LIGHTPURPLE  := $(shell tput -Txterm setaf 4)
+PURPLE       := $(shell tput -Txterm setaf 5)
+BLUE         := $(shell tput -Txterm setaf 6)
+WHITE        := $(shell tput -Txterm setaf 7)
+
+RESET := $(shell tput -Txterm sgr0)
+
+# Shortcut for Drush command inside the container (this allows to handle --parameter with no errors).
+DRUSHCOMMAND := docker exec $(shell docker ps --filter name='^/$(PROJECT_NAME)_php' --format "{{ .ID }}") drush -r $(DRUPAL_ROOT)
+
+## local-env	:	Rename files for local environment.
+.PHONY: local-env
+local-env: local-settings
+	@echo "${BLUE}Copy .env.example to .env${RESET}"
+	@cp -i .env.example .env && echo "${GREEN}File created.${RESET}" || echo "${RED}File not created.${RESET}"
+	@echo "${BLUE}Copy docker-compose.override.example.yml docker-compose.override.yml${RESET}"
+	@cp -i docker-compose.override.example.yml docker-compose.override.yml && echo "${GREEN}File created.${RESET}" || echo "${RED}File not created.${RESET}"
+
+## local-settings : Copy the example.settings.local.php to settings.local.php in sites/default
+.PHONY: local-settings
+local-settings:
+	@echo "Copy the example.settings.local.php to settings.local.php in sites/default"
+	@chmod 755 ${DRUPAL_DEFAULT} # Drupal set the default directory to read-only, we need to make it writable
+	@cp -i web/sites/example.settings.local.php ${DRUPAL_DEFAULT}/settings.local.php && echo "${GREEN}File created.${RESET}" || echo "${RED}File not created.${RESET}"
+	@chmod 555 ${DRUPAL_DEFAULT} # Revert permissions
+
+## fix-permissions : Allow you to change folder permissions (555 on sites/default and 777 for underneath folders)
+.PHONY: fix-permissions
+fix-permissions:
+	@find ${DRUPAL_DEFAULT} -type d -exec chmod --changes 777 {} \;
+	@chmod 555 ${DRUPAL_DEFAULT}
+	@chmod 444 ${DRUPAL_DEFAULT}/settings.php
+
+## init	:	Install drupal with your code configuration set.
+.PHONY: init
+init:
+	@echo "${BLUE}Installing Drupal...${RESET}"
+	${DRUSHCOMMAND} si minimal --account-name=${DRUPAL_INIT_ADMIN_USER_NAME} --account-pass=${DRUPAL_INIT_ADMIN_PASSWORD} --account-mail=${DRUPAL_INIT_ADMIN_EMAIL}
+	@echo "${BLUE}Update site variables...${RESET}"
+	${DRUSHCOMMAND} cset "system.site" uuid "06f43768-9b03-4511-b081-0bd609c9e7b7"
+	@echo "${BLUE}Run Update DB hooks - Drush updb ...${RESET}"
+	${DRUSHCOMMAND} updb
+	@echo "${BLUE}Import config${RESET}"
+	${DRUSHCOMMAND} cim
+	@echo "${BLUE}Clear cache - Drush cr ...${RESET}"
+	make drush cr
+	@echo "${GREEN}BOUYAKAAAA !!! Run ${RED}make website ${GREEN}to launch your website${RESET}"
+
+## import-db	:	Save your current database, then Executes drush sql-cli<db.sql command in php container.
+.PHONY: import-db
+import-db:
+	@echo "${BLUE}Dumping current database as a backup...${RESET}"
+	@${DRUSHCOMMAND} sql-dump --result-file=../db-backup.sql
+	@echo "${BLUE}Empty all tables...${RESET}"
+	@${DRUSHCOMMAND} sql-drop
+	@echo "${BLUE}Importing databse with drush...${RESET}"
+	@${DRUSHCOMMAND} sql-cli<db.sql && echo "${GREEN}Databse Imported. You can remove the db.sql file now.${RESET}" || echo "${RED}You need a db.sql file at the root of the project.${RESET}"
+
+## export-db	:	Save your current database, then Executes drush sql-cli<db.sql command in php container.
+.PHONY: export-db
+export-db:
+	@echo "${BLUE}Dumping current database as a backup...${RESET}"
+	@${DRUSHCOMMAND} sql-dump --result-file=../db-backup.sql && echo "${GREEN}Database Exported : db-backup.sql.${RESET}" || echo "${RED}Exporting database failed.${RESET}"
+
+.PHONY: backup-db
+backup-db:
+	@echo "${BLUE}Making a backup of the database${RESET}"
+	@mkdir -p backups/databases
+	@${DRUSHCOMMAND} sql-dump --result-file=../backups/databases/db-backup-$(shell date +%FT%T%Z).sql && echo "${GREEN}Database successfully exported to your backups/databases directory.${RESET}" || echo "${RED}Exporting database failed.${RESET}"
+
+## update	:	Executes some drush commands to update the database.
+.PHONY: update
+update: backup-db
+	@echo "${BLUE}Run composer install ...${RESET}"
+	make composer install
+	@echo "${BLUE}Run Update DB hooks - Drush updb ...${RESET}"
+	make drush updb
+	@echo "${BLUE}Clear cache - Drush cr BEFORE cim ...${RESET}"
+	make drush cr
+	@echo "${BLUE}Import config - Drush cim ...${RESET}"
+	make drush cim
+	@echo "${BLUE}Clear cache - Drush cr AFTER cim ...${RESET}"
+	make drush cr
+
+.PHONY: uli
+uli:
+	docker-compose exec php bash -c "drush uli --uri=http://formation.loc"
 
 ## website	:	Launch website in default browser.
 .PHONY: website
