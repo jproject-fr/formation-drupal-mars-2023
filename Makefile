@@ -126,7 +126,7 @@ local-settings:
 ## fix-permissions : Allow you to change folder permissions (555 on sites/default and 777 for underneath folders)
 .PHONY: fix-permissions
 fix-permissions:
-	@find ${DRUPAL_DEFAULT} -type d -exec chmod --changes 777 {} \;
+	@find ${DRUPAL_DEFAULT} -type d -exec chmod -v 777 {} \;
 	@chmod 555 ${DRUPAL_DEFAULT}
 	@chmod 444 ${DRUPAL_DEFAULT}/settings.php
 
