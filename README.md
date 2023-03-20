@@ -13,11 +13,9 @@ Also make sure that PHP_TAG environment variable is correct depending on your OS
 You can leave everything else as such.
 If you want to change the default local port, for 8080 for instance,
 make the following change `PROJECT_PORT=8080`
-* Create the docker containers for the project: `make`
+* RUN `make` in order to create the docker containers for the project:
 * Run `make all-permissions` to avoid permissions issues
-* Use composer to manage all dependencies: `make composer install`
-This step might last long, please be patient.
-* RUN `make init` to install Drupal with your configuration.
+* RUN `make init` to install Drupal with your configuration. This step might last long, please be patient.
 * RUN `make website` to launch your website.
 
 ## 2. Import existing database and files
