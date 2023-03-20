@@ -136,7 +136,7 @@ init:
 	@echo "${BLUE}Installing Drupal...${RESET}"
 	${DRUSHCOMMAND} si minimal --account-name=${DRUPAL_INIT_ADMIN_USER_NAME} --account-pass=${DRUPAL_INIT_ADMIN_PASSWORD} --account-mail=${DRUPAL_INIT_ADMIN_EMAIL}
 	@echo "${BLUE}Update site variables...${RESET}"
-	${DRUSHCOMMAND} cset "system.site" uuid "06f43768-9b03-4511-b081-0bd609c9e7b7"
+	${DRUSHCOMMAND} cset "system.site" uuid "45140139-be28-4fef-b13f-11d9af32205e"
 	@echo "${BLUE}Run Update DB hooks - Drush updb ...${RESET}"
 	${DRUSHCOMMAND} updb
 	@echo "${BLUE}Import config${RESET}"
