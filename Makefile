@@ -130,6 +130,11 @@ fix-permissions:
 	@chmod 555 ${DRUPAL_DEFAULT}
 	@chmod 444 ${DRUPAL_DEFAULT}/settings.php
 
+## all-permissions : Allow you to change folder permissions (777 on sites/default)
+.PHONY: all-permissions
+all-permissions:
+	@chmod 777 ${DRUPAL_DEFAULT}
+
 ## init	:	Install drupal with your code configuration set.
 .PHONY: init
 init:
