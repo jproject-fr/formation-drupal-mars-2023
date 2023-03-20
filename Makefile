@@ -37,6 +37,12 @@ start:
 	@echo "Starting containers for $(PROJECT_NAME) from where you left off..."
 	@docker-compose start
 
+## restart	:	Restart containers without updating.
+.PHONY: restart
+restart:
+	@echo "Restarting containers for $(PROJECT_NAME) ..."
+	@docker-compose restart
+
 ## stop	:	Stop containers.
 .PHONY: stop
 stop:
