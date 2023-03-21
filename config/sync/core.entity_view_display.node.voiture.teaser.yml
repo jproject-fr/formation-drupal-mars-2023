@@ -1,0 +1,34 @@
+uuid: bdd3c4e4-09aa-42f1-8960-84c36425f0d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.voiture.body
+    - field.field.node.voiture.field_constructeur
+    - field.field.node.voiture.field_photo
+    - node.type.voiture
+  module:
+    - text
+    - user
+id: node.voiture.teaser
+targetEntityType: node
+bundle: voiture
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_constructeur: true
+  field_photo: true

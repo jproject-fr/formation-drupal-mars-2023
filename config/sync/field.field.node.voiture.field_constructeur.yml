@@ -1,0 +1,21 @@
+uuid: a5443eca-918a-4b37-b6e5-822b590c5143
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_constructeur
+    - node.type.voiture
+id: node.voiture.field_constructeur
+field_name: field_constructeur
+entity_type: node
+bundle: voiture
+label: Constructeur
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings: {  }
+field_type: entity_reference
