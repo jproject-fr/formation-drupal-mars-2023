@@ -1,38 +1,29 @@
-uuid: b4cad93b-ac1e-45c3-ba27-6bcad43bae37
+uuid: b68f89d2-638b-4b90-90b3-979dda101376
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_photo
+    - media.type.image
     - node.type.voiture
-  module:
-    - image
 id: node.voiture.field_photo
 field_name: field_photo
 entity_type: node
 bundle: voiture
 label: Photo
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:file'
-  handler_settings: {  }
-  file_directory: '[date:custom:Y]-[date:custom:m]'
-  file_extensions: 'png gif jpg jpeg'
-  max_filesize: ''
-  max_resolution: ''
-  min_resolution: ''
-  alt_field: true
-  alt_field_required: true
-  title_field: false
-  title_field_required: false
-  default_image:
-    uuid: null
-    alt: ''
-    title: ''
-    width: null
-    height: null
-field_type: image
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

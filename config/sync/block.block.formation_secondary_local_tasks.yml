@@ -1,0 +1,22 @@
+uuid: 6b9a18b6-339c-4a52-a944-1fe75ec475ba
+langcode: en
+status: true
+dependencies:
+  theme:
+    - formation
+_core:
+  default_config_hash: wn5VZs5dD-Oc-xrCEPQeuuaTu7w6N9WMxjRi90yHFD4
+id: formation_secondary_local_tasks
+theme: formation
+region: content
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  label_display: '0'
+  provider: core
+  primary: false
+  secondary: true
+visibility: {  }

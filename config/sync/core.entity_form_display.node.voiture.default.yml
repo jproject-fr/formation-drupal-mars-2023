@@ -6,10 +6,9 @@ dependencies:
     - field.field.node.voiture.body
     - field.field.node.voiture.field_constructeur
     - field.field.node.voiture.field_photo
-    - image.style.thumbnail
     - node.type.voiture
   module:
-    - image
+    - media_library
     - path
     - text
 id: node.voiture.default
@@ -44,12 +43,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
   field_photo:
-    type: image_image
+    type: media_library_widget
     weight: 123
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      media_types: {  }
     third_party_settings: {  }
   path:
     type: path

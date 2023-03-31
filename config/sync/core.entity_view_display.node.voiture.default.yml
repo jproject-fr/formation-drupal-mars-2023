@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.voiture.field_photo
     - node.type.voiture
   module:
-    - image
     - text
     - user
 id: node.voiture.default
@@ -32,13 +31,11 @@ content:
     weight: 102
     region: content
   field_photo:
-    type: image
+    type: entity_reference_entity_view
     label: above
     settings:
-      image_link: ''
-      image_style: ''
-      image_loading:
-        attribute: lazy
+      view_mode: default
+      link: false
     third_party_settings: {  }
     weight: 103
     region: content

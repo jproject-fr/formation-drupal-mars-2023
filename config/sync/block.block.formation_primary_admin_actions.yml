@@ -1,0 +1,20 @@
+uuid: c1d22e42-b8ac-4fe7-bffd-ed0c1f3a5167
+langcode: en
+status: true
+dependencies:
+  theme:
+    - formation
+_core:
+  default_config_hash: xJpJsZ-THNRxCglZb2fsD_kcQY4ozDzxl892B5L-1bM
+id: formation_primary_admin_actions
+theme: formation
+region: content
+weight: -6
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

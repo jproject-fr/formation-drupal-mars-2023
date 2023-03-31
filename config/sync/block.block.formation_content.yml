@@ -1,0 +1,22 @@
+uuid: 06088757-4838-4b1f-9864-e208e667dc88
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - formation
+_core:
+  default_config_hash: AUdprqdbIw1MY55WKQmJxnHPaSsGtTNXmS2dmL_KFco
+id: formation_content
+theme: formation
+region: content
+weight: -3
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

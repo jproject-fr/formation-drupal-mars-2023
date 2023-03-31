@@ -1,0 +1,27 @@
+uuid: 0178f5a0-96fa-44ac-8b28-d3fb3303abf3
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - formation
+_core:
+  default_config_hash: mx3mE3EjsmE4O0zgT0wA65e4cj8e2xfG1K6tiRQzsXI
+id: formation_account_menu
+theme: formation
+region: secondary_menu
+weight: -7
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }
