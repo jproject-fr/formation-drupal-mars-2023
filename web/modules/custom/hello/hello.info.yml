@@ -1,0 +1,10 @@
+# Nom du module.
+name: 'Hello'
+# Description du module.
+description: 'Hello module'
+# Type de code (module, theme...).
+type: module
+# Version de Drupal pour laquelle le module est développée.
+core_version_requirement: ^9.2 || ^10
+# Groupe du module.
+package: 'Formation'

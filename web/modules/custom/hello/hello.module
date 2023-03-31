@@ -1,0 +1,42 @@
+<?php
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Session\AccountProxyInterface;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_help().
+ *
+ * @param $route_name
+ * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
+ * @return string
+ */
+function hello_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main help for the hello module.
+    case 'help.page.hello':
+      return '<p>' . t('This module is a hello world module.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_cron().
+ */
+function hello_cron() {
+  \Drupal::messenger()->addMessage(t('Hello cron.'));
+}
+
+/**
+ * Implements hook_user_login().
+ *
+ * @param \Drupal\user\UserInterface $account
+ *
+ */
+function hello_user_login(UserInterface $account) {
+  $test = $account->get('field_last_name')->value;
+  \Drupal::messenger()->addMessage(t('Welcome dear %name!',
+    ['%name' => $account->getDisplayName()]
+  ));
+}
